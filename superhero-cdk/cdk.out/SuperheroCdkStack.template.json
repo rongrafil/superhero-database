@@ -1,0 +1,410 @@
+{
+ "Resources": {
+  "SuperheroDBFCA68E99": {
+   "Type": "AWS::DynamoDB::Table",
+   "Properties": {
+    "KeySchema": [
+     {
+      "AttributeName": "id",
+      "KeyType": "HASH"
+     }
+    ],
+    "AttributeDefinitions": [
+     {
+      "AttributeName": "id",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "hero_name",
+      "AttributeType": "S"
+     },
+     {
+      "AttributeName": "powers",
+      "AttributeType": "S"
+     }
+    ],
+    "BillingMode": "PAY_PER_REQUEST",
+    "GlobalSecondaryIndexes": [
+     {
+      "IndexName": "hero_name-index",
+      "KeySchema": [
+       {
+        "AttributeName": "hero_name",
+        "KeyType": "HASH"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     },
+     {
+      "IndexName": "powers-index",
+      "KeySchema": [
+       {
+        "AttributeName": "powers",
+        "KeyType": "HASH"
+       }
+      ],
+      "Projection": {
+       "ProjectionType": "ALL"
+      }
+     }
+    ]
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-DB/Resource"
+   }
+  },
+  "SuperheroAPI9B1EB2E0": {
+   "Type": "AWS::AppSync::GraphQLApi",
+   "Properties": {
+    "AuthenticationType": "API_KEY",
+    "Name": "Superhero-API"
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/Resource"
+   }
+  },
+  "SuperheroAPISchemaF5B4FD06": {
+   "Type": "AWS::AppSync::GraphQLSchema",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "Definition": "type Hero {\n\tid: ID!\n\thero_name: String\n\tpowers: String\n\tbackstory: String\n}\n\ntype PaginatedHeroes {\n\theroes: [Hero!]!\n\tnextToken: String\n}\n\ntype Mutation {\n\tdeleteHero(id: ID!): Hero\n\tupdateHero(\n\t\tid: ID!,\n\t\thero_name: String,\n\t\tpowers: String,\n\t\tbackstory: String\n\t): Hero\n\taddHero(hero_name: String!, powers: String, backstory: String): Hero!\n}\n\ntype Query {\n\tallHeroesByHeroName(hero_name: String!, count: Int, nextToken: String): PaginatedHeroes!\n\tallHeroesByPowers(powers: String!, count: Int, nextToken: String): PaginatedHeroes!\n\tallHeroes(count: Int, nextToken: String): PaginatedHeroes!\n\tgetHero(id: String): Hero\n}\n\nschema {\n\tquery: Query\n\tmutation: Mutation\n}"
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/Schema"
+   }
+  },
+  "SuperheroAPIDefaultApiKey8889C4F9": {
+   "Type": "AWS::AppSync::ApiKey",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    }
+   },
+   "DependsOn": [
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/DefaultApiKey"
+   }
+  },
+  "SuperheroAPIMyDataSourceServiceRoleFFBA11E8": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "appsync.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceServiceRoleDefaultPolicyE81BDD3B": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:ConditionCheckItem",
+        "dynamodb:DeleteItem",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetItem",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:PutItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:UpdateItem"
+       ],
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "SuperheroDBFCA68E99",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "SuperheroDBFCA68E99",
+             "Arn"
+            ]
+           },
+           "/index/*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SuperheroAPIMyDataSourceServiceRoleDefaultPolicyE81BDD3B",
+    "Roles": [
+     {
+      "Ref": "SuperheroAPIMyDataSourceServiceRoleFFBA11E8"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSource3C34519A": {
+   "Type": "AWS::AppSync::DataSource",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "Name": "MyDataSource",
+    "Type": "AMAZON_DYNAMODB",
+    "DynamoDBConfig": {
+     "AwsRegion": "ap-southeast-2",
+     "TableName": {
+      "Ref": "SuperheroDBFCA68E99"
+     }
+    },
+    "ServiceRoleArn": {
+     "Fn::GetAtt": [
+      "SuperheroAPIMyDataSourceServiceRoleFFBA11E8",
+      "Arn"
+     ]
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceQuerygetHeroResolver9B3DEADA": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "getHero",
+    "TypeName": "Query",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.id),\n    }\n}",
+    "ResponseMappingTemplate": "$util.toJson($ctx.result)"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/QuerygetHeroResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceQueryallHeroesByHeroNameResolver3CF7CC6E": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "allHeroesByHeroName",
+    "TypeName": "Query",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"index\" : \"hero_name-index\",\n    \"query\" : {\n      \"expression\": \"hero_name = :hero_name\",\n        \"expressionValues\" : {\n          \":hero_name\" : $util.dynamodb.toDynamoDBJson($context.arguments.hero_name)\n        }\n    }\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": \"${context.arguments.nextToken}\"\n    #end\n}",
+    "ResponseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByHeroNameResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceQueryallHeroesByPowersResolver36342A27": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "allHeroesByPowers",
+    "TypeName": "Query",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"index\" : \"powers-index\",\n    \"query\" : {\n      \"expression\": \"powers = :powers\",\n        \"expressionValues\" : {\n          \":powers\" : $util.dynamodb.toDynamoDBJson($context.arguments.powers)\n        }\n    }\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": \"${context.arguments.nextToken}\"\n    #end\n}",
+    "ResponseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByPowersResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceQueryallHeroesResolver95217650": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "allHeroes",
+    "TypeName": "Query",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Scan\"\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": $util.toJson($context.arguments.nextToken)\n    #end\n}",
+    "ResponseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceMutationdeleteHeroResolver2DEDC1C7": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "deleteHero",
+    "TypeName": "Mutation",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"DeleteItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($context.arguments.id)\n    }\n}",
+    "ResponseMappingTemplate": "$util.toJson($ctx.result)"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationdeleteHeroResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceMutationupdateHeroResolver364BD50C": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "updateHero",
+    "TypeName": "Mutation",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"UpdateItem\",\n    \"key\" : {\n        \"id\" : $util.dynamodb.toDynamoDBJson($context.arguments.id)\n    },\n\n    ## Set up some space to keep track of things you're updating **\n    #set( $expNames  = {} )\n    #set( $expValues = {} )\n    #set( $expSet = {} )\n    #set( $expAdd = {} )\n    #set( $expRemove = [] )\n\n    ## Iterate through each argument, skipping \"id\" **\n    #foreach( $entry in $context.arguments.entrySet() )\n        #if( $entry.key != \"id\" )\n            #if( (!$entry.value) && (\"$!{entry.value}\" == \"\") )\n                ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n                #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n                $!{expNames.put(\"#${entry.key}\", \"$entry.key\")}\n            #else\n                ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n                $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n                $!{expNames.put(\"#${entry.key}\", \"$entry.key\")}\n                $!{expValues.put(\":${entry.key}\", { \"S\" : \"${entry.value}\" })}\n            #end\n        #end\n    #end\n\n    ## Start building the update expression, starting with attributes you're going to SET **\n    #set( $expression = \"\" )\n    #if( !${expSet.isEmpty()} )\n        #set( $expression = \"SET\" )\n        #foreach( $entry in $expSet.entrySet() )\n            #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Continue building the update expression, adding attributes you're going to ADD **\n    #if( !${expAdd.isEmpty()} )\n        #set( $expression = \"${expression} ADD\" )\n        #foreach( $entry in $expAdd.entrySet() )\n            #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Continue building the update expression, adding attributes you're going to REMOVE **\n    #if( !${expRemove.isEmpty()} )\n        #set( $expression = \"${expression} REMOVE\" )\n\n        #foreach( $entry in $expRemove )\n            #set( $expression = \"${expression} ${entry}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n    \"update\" : {\n        \"expression\" : \"${expression}\"\n        #if( !${expNames.isEmpty()} )\n            ,\"expressionNames\" : $utils.toJson($expNames)\n        #end\n        #if( !${expValues.isEmpty()} )\n            ,\"expressionValues\" : $utils.toJson($expValues)\n        #end\n    }\n}",
+    "ResponseMappingTemplate": "$util.toJson($ctx.result)"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationupdateHeroResolver/Resource"
+   }
+  },
+  "SuperheroAPIMyDataSourceMutationaddHeroResolverA0156B49": {
+   "Type": "AWS::AppSync::Resolver",
+   "Properties": {
+    "ApiId": {
+     "Fn::GetAtt": [
+      "SuperheroAPI9B1EB2E0",
+      "ApiId"
+     ]
+    },
+    "FieldName": "addHero",
+    "TypeName": "Mutation",
+    "DataSourceName": "MyDataSource",
+    "Kind": "UNIT",
+    "RequestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"PutItem\",\n    \"key\" : {\n        \"id\" : $util.dynamodb.toDynamoDBJson($utils.autoId()),\n    },\n    \"attributeValues\" : {\n   \t\t\"hero_name\" : $util.dynamodb.toDynamoDBJson($context.arguments.hero_name),\n        \"powers\" : $util.dynamodb.toDynamoDBJson($context.arguments.powers),\n        \"backstory\" : $util.dynamodb.toDynamoDBJson($context.arguments.backstory),\n    }\n}",
+    "ResponseMappingTemplate": "$util.toJson($ctx.result)"
+   },
+   "DependsOn": [
+    "SuperheroAPIMyDataSource3C34519A",
+    "SuperheroAPISchemaF5B4FD06"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationaddHeroResolver/Resource"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/1VQSwrCMBA9i/s4WhFxqVhwoaC2XmCaRoy2ScxHKSF3t0lRdPV+vOExGcymc5iOVvgyY1rfJ55KzcCXFumdFMxIpykjm4s4OKucJRspjNWO2uh98kBi3dedwFbWFfgzVk1qJdLHSplOUPBbjer6aNaKxzSp0/5flfTKWoxG7+9YR/J0Nq9ytFh+9/yoOKN5Mv2ZFHkgHFvwhRx2JDzKhtMuyoGFEIiQNYObmTyzJWSL/hM3w/lYO2F5y6AY8A2EXTKQJgEAAA=="
+   },
+   "Metadata": {
+    "aws:cdk:path": "SuperheroCdkStack/CDKMetadata/Default"
+   }
+  }
+ },
+ "Outputs": {
+  "GraphQLAPIEndpoint": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SuperheroAPI9B1EB2E0",
+     "GraphQLUrl"
+    ]
+   },
+   "Export": {
+    "Name": "GraphQLAPIEndpoint"
+   }
+  },
+  "GraphQLAPIKey": {
+   "Value": {
+    "Fn::GetAtt": [
+     "SuperheroAPIDefaultApiKey8889C4F9",
+     "ApiKey"
+    ]
+   },
+   "Export": {
+    "Name": "GraphQLAPIKey"
+   }
+  }
+ }
+}

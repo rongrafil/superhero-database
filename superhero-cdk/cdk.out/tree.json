@@ -1,0 +1,603 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree",
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Construct",
+          "version": "1.204.0"
+        }
+      },
+      "SuperheroCdkStack": {
+        "id": "SuperheroCdkStack",
+        "path": "SuperheroCdkStack",
+        "children": {
+          "Superhero-DB": {
+            "id": "Superhero-DB",
+            "path": "SuperheroCdkStack/Superhero-DB",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SuperheroCdkStack/Superhero-DB/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::DynamoDB::Table",
+                  "aws:cdk:cloudformation:props": {
+                    "keySchema": [
+                      {
+                        "attributeName": "id",
+                        "keyType": "HASH"
+                      }
+                    ],
+                    "attributeDefinitions": [
+                      {
+                        "attributeName": "id",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "hero_name",
+                        "attributeType": "S"
+                      },
+                      {
+                        "attributeName": "powers",
+                        "attributeType": "S"
+                      }
+                    ],
+                    "billingMode": "PAY_PER_REQUEST",
+                    "globalSecondaryIndexes": [
+                      {
+                        "indexName": "hero_name-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "hero_name",
+                            "keyType": "HASH"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      },
+                      {
+                        "indexName": "powers-index",
+                        "keySchema": [
+                          {
+                            "attributeName": "powers",
+                            "keyType": "HASH"
+                          }
+                        ],
+                        "projection": {
+                          "projectionType": "ALL"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-dynamodb.CfnTable",
+                  "version": "1.204.0"
+                }
+              },
+              "ScalingRole": {
+                "id": "ScalingRole",
+                "path": "SuperheroCdkStack/Superhero-DB/ScalingRole",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.Resource",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-dynamodb.Table",
+              "version": "1.204.0"
+            }
+          },
+          "Superhero-API": {
+            "id": "Superhero-API",
+            "path": "SuperheroCdkStack/Superhero-API",
+            "children": {
+              "Resource": {
+                "id": "Resource",
+                "path": "SuperheroCdkStack/Superhero-API/Resource",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AppSync::GraphQLApi",
+                  "aws:cdk:cloudformation:props": {
+                    "authenticationType": "API_KEY",
+                    "name": "Superhero-API"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.CfnGraphQLApi",
+                  "version": "1.204.0"
+                }
+              },
+              "Schema": {
+                "id": "Schema",
+                "path": "SuperheroCdkStack/Superhero-API/Schema",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AppSync::GraphQLSchema",
+                  "aws:cdk:cloudformation:props": {
+                    "apiId": {
+                      "Fn::GetAtt": [
+                        "SuperheroAPI9B1EB2E0",
+                        "ApiId"
+                      ]
+                    },
+                    "definition": "type Hero {\n\tid: ID!\n\thero_name: String\n\tpowers: String\n\tbackstory: String\n}\n\ntype PaginatedHeroes {\n\theroes: [Hero!]!\n\tnextToken: String\n}\n\ntype Mutation {\n\tdeleteHero(id: ID!): Hero\n\tupdateHero(\n\t\tid: ID!,\n\t\thero_name: String,\n\t\tpowers: String,\n\t\tbackstory: String\n\t): Hero\n\taddHero(hero_name: String!, powers: String, backstory: String): Hero!\n}\n\ntype Query {\n\tallHeroesByHeroName(hero_name: String!, count: Int, nextToken: String): PaginatedHeroes!\n\tallHeroesByPowers(powers: String!, count: Int, nextToken: String): PaginatedHeroes!\n\tallHeroes(count: Int, nextToken: String): PaginatedHeroes!\n\tgetHero(id: String): Hero\n}\n\nschema {\n\tquery: Query\n\tmutation: Mutation\n}"
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.CfnGraphQLSchema",
+                  "version": "1.204.0"
+                }
+              },
+              "DefaultApiKey": {
+                "id": "DefaultApiKey",
+                "path": "SuperheroCdkStack/Superhero-API/DefaultApiKey",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::AppSync::ApiKey",
+                  "aws:cdk:cloudformation:props": {
+                    "apiId": {
+                      "Fn::GetAtt": [
+                        "SuperheroAPI9B1EB2E0",
+                        "ApiId"
+                      ]
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.CfnApiKey",
+                  "version": "1.204.0"
+                }
+              },
+              "MyDataSource": {
+                "id": "MyDataSource",
+                "path": "SuperheroCdkStack/Superhero-API/MyDataSource",
+                "children": {
+                  "ServiceRole": {
+                    "id": "ServiceRole",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::IAM::Role",
+                          "aws:cdk:cloudformation:props": {
+                            "assumeRolePolicyDocument": {
+                              "Statement": [
+                                {
+                                  "Action": "sts:AssumeRole",
+                                  "Effect": "Allow",
+                                  "Principal": {
+                                    "Service": "appsync.amazonaws.com"
+                                  }
+                                }
+                              ],
+                              "Version": "2012-10-17"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.CfnRole",
+                          "version": "1.204.0"
+                        }
+                      },
+                      "DefaultPolicy": {
+                        "id": "DefaultPolicy",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/DefaultPolicy",
+                        "children": {
+                          "Resource": {
+                            "id": "Resource",
+                            "path": "SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/DefaultPolicy/Resource",
+                            "attributes": {
+                              "aws:cdk:cloudformation:type": "AWS::IAM::Policy",
+                              "aws:cdk:cloudformation:props": {
+                                "policyDocument": {
+                                  "Statement": [
+                                    {
+                                      "Action": [
+                                        "dynamodb:BatchGetItem",
+                                        "dynamodb:BatchWriteItem",
+                                        "dynamodb:ConditionCheckItem",
+                                        "dynamodb:DeleteItem",
+                                        "dynamodb:DescribeTable",
+                                        "dynamodb:GetItem",
+                                        "dynamodb:GetRecords",
+                                        "dynamodb:GetShardIterator",
+                                        "dynamodb:PutItem",
+                                        "dynamodb:Query",
+                                        "dynamodb:Scan",
+                                        "dynamodb:UpdateItem"
+                                      ],
+                                      "Effect": "Allow",
+                                      "Resource": [
+                                        {
+                                          "Fn::GetAtt": [
+                                            "SuperheroDBFCA68E99",
+                                            "Arn"
+                                          ]
+                                        },
+                                        {
+                                          "Fn::Join": [
+                                            "",
+                                            [
+                                              {
+                                                "Fn::GetAtt": [
+                                                  "SuperheroDBFCA68E99",
+                                                  "Arn"
+                                                ]
+                                              },
+                                              "/index/*"
+                                            ]
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  ],
+                                  "Version": "2012-10-17"
+                                },
+                                "policyName": "SuperheroAPIMyDataSourceServiceRoleDefaultPolicyE81BDD3B",
+                                "roles": [
+                                  {
+                                    "Ref": "SuperheroAPIMyDataSourceServiceRoleFFBA11E8"
+                                  }
+                                ]
+                              }
+                            },
+                            "constructInfo": {
+                              "fqn": "@aws-cdk/aws-iam.CfnPolicy",
+                              "version": "1.204.0"
+                            }
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-iam.Policy",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-iam.Role",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "Resource": {
+                    "id": "Resource",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/Resource",
+                    "attributes": {
+                      "aws:cdk:cloudformation:type": "AWS::AppSync::DataSource",
+                      "aws:cdk:cloudformation:props": {
+                        "apiId": {
+                          "Fn::GetAtt": [
+                            "SuperheroAPI9B1EB2E0",
+                            "ApiId"
+                          ]
+                        },
+                        "name": "MyDataSource",
+                        "type": "AMAZON_DYNAMODB",
+                        "dynamoDbConfig": {
+                          "tableName": {
+                            "Ref": "SuperheroDBFCA68E99"
+                          },
+                          "awsRegion": "ap-southeast-2"
+                        },
+                        "serviceRoleArn": {
+                          "Fn::GetAtt": [
+                            "SuperheroAPIMyDataSourceServiceRoleFFBA11E8",
+                            "Arn"
+                          ]
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.CfnDataSource",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "QuerygetHeroResolver": {
+                    "id": "QuerygetHeroResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QuerygetHeroResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QuerygetHeroResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "getHero",
+                            "typeName": "Query",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\": \"2017-02-28\",\n    \"operation\": \"GetItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($ctx.args.id),\n    }\n}",
+                            "responseMappingTemplate": "$util.toJson($ctx.result)"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "QueryallHeroesByHeroNameResolver": {
+                    "id": "QueryallHeroesByHeroNameResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByHeroNameResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByHeroNameResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "allHeroesByHeroName",
+                            "typeName": "Query",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"index\" : \"hero_name-index\",\n    \"query\" : {\n      \"expression\": \"hero_name = :hero_name\",\n        \"expressionValues\" : {\n          \":hero_name\" : $util.dynamodb.toDynamoDBJson($context.arguments.hero_name)\n        }\n    }\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": \"${context.arguments.nextToken}\"\n    #end\n}",
+                            "responseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "QueryallHeroesByPowersResolver": {
+                    "id": "QueryallHeroesByPowersResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByPowersResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByPowersResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "allHeroesByPowers",
+                            "typeName": "Query",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Query\",\n    \"index\" : \"powers-index\",\n    \"query\" : {\n      \"expression\": \"powers = :powers\",\n        \"expressionValues\" : {\n          \":powers\" : $util.dynamodb.toDynamoDBJson($context.arguments.powers)\n        }\n    }\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": \"${context.arguments.nextToken}\"\n    #end\n}",
+                            "responseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "QueryallHeroesResolver": {
+                    "id": "QueryallHeroesResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "allHeroes",
+                            "typeName": "Query",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"Scan\"\n    #if( ${context.arguments.count} )\n        ,\"limit\": $util.toJson($context.arguments.count)\n    #end\n    #if( ${context.arguments.nextToken} )\n        ,\"nextToken\": $util.toJson($context.arguments.nextToken)\n    #end\n}",
+                            "responseMappingTemplate": "{\n    \"heroes\": $utils.toJson($context.result.items)\n    #if( ${context.result.nextToken} )\n        ,\"nextToken\": $util.toJson($context.result.nextToken)\n    #end\n}"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "MutationdeleteHeroResolver": {
+                    "id": "MutationdeleteHeroResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationdeleteHeroResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationdeleteHeroResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "deleteHero",
+                            "typeName": "Mutation",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"DeleteItem\",\n    \"key\": {\n        \"id\": $util.dynamodb.toDynamoDBJson($context.arguments.id)\n    }\n}",
+                            "responseMappingTemplate": "$util.toJson($ctx.result)"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "MutationupdateHeroResolver": {
+                    "id": "MutationupdateHeroResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationupdateHeroResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationupdateHeroResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "updateHero",
+                            "typeName": "Mutation",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"UpdateItem\",\n    \"key\" : {\n        \"id\" : $util.dynamodb.toDynamoDBJson($context.arguments.id)\n    },\n\n    ## Set up some space to keep track of things you're updating **\n    #set( $expNames  = {} )\n    #set( $expValues = {} )\n    #set( $expSet = {} )\n    #set( $expAdd = {} )\n    #set( $expRemove = [] )\n\n    ## Iterate through each argument, skipping \"id\" **\n    #foreach( $entry in $context.arguments.entrySet() )\n        #if( $entry.key != \"id\" )\n            #if( (!$entry.value) && (\"$!{entry.value}\" == \"\") )\n                ## If the argument is set to \"null\", then remove that attribute from the item in DynamoDB **\n\n                #set( $discard = ${expRemove.add(\"#${entry.key}\")} )\n                $!{expNames.put(\"#${entry.key}\", \"$entry.key\")}\n            #else\n                ## Otherwise set (or update) the attribute on the item in DynamoDB **\n\n                $!{expSet.put(\"#${entry.key}\", \":${entry.key}\")}\n                $!{expNames.put(\"#${entry.key}\", \"$entry.key\")}\n                $!{expValues.put(\":${entry.key}\", { \"S\" : \"${entry.value}\" })}\n            #end\n        #end\n    #end\n\n    ## Start building the update expression, starting with attributes you're going to SET **\n    #set( $expression = \"\" )\n    #if( !${expSet.isEmpty()} )\n        #set( $expression = \"SET\" )\n        #foreach( $entry in $expSet.entrySet() )\n            #set( $expression = \"${expression} ${entry.key} = ${entry.value}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Continue building the update expression, adding attributes you're going to ADD **\n    #if( !${expAdd.isEmpty()} )\n        #set( $expression = \"${expression} ADD\" )\n        #foreach( $entry in $expAdd.entrySet() )\n            #set( $expression = \"${expression} ${entry.key} ${entry.value}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Continue building the update expression, adding attributes you're going to REMOVE **\n    #if( !${expRemove.isEmpty()} )\n        #set( $expression = \"${expression} REMOVE\" )\n\n        #foreach( $entry in $expRemove )\n            #set( $expression = \"${expression} ${entry}\" )\n            #if ( $foreach.hasNext )\n                #set( $expression = \"${expression},\" )\n            #end\n        #end\n    #end\n\n    ## Finally, write the update expression into the document, along with any expressionNames and expressionValues **\n    \"update\" : {\n        \"expression\" : \"${expression}\"\n        #if( !${expNames.isEmpty()} )\n            ,\"expressionNames\" : $utils.toJson($expNames)\n        #end\n        #if( !${expValues.isEmpty()} )\n            ,\"expressionValues\" : $utils.toJson($expValues)\n        #end\n    }\n}",
+                            "responseMappingTemplate": "$util.toJson($ctx.result)"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  },
+                  "MutationaddHeroResolver": {
+                    "id": "MutationaddHeroResolver",
+                    "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationaddHeroResolver",
+                    "children": {
+                      "Resource": {
+                        "id": "Resource",
+                        "path": "SuperheroCdkStack/Superhero-API/MyDataSource/MutationaddHeroResolver/Resource",
+                        "attributes": {
+                          "aws:cdk:cloudformation:type": "AWS::AppSync::Resolver",
+                          "aws:cdk:cloudformation:props": {
+                            "apiId": {
+                              "Fn::GetAtt": [
+                                "SuperheroAPI9B1EB2E0",
+                                "ApiId"
+                              ]
+                            },
+                            "fieldName": "addHero",
+                            "typeName": "Mutation",
+                            "dataSourceName": "MyDataSource",
+                            "kind": "UNIT",
+                            "requestMappingTemplate": "{\n    \"version\" : \"2017-02-28\",\n    \"operation\" : \"PutItem\",\n    \"key\" : {\n        \"id\" : $util.dynamodb.toDynamoDBJson($utils.autoId()),\n    },\n    \"attributeValues\" : {\n   \t\t\"hero_name\" : $util.dynamodb.toDynamoDBJson($context.arguments.hero_name),\n        \"powers\" : $util.dynamodb.toDynamoDBJson($context.arguments.powers),\n        \"backstory\" : $util.dynamodb.toDynamoDBJson($context.arguments.backstory),\n    }\n}",
+                            "responseMappingTemplate": "$util.toJson($ctx.result)"
+                          }
+                        },
+                        "constructInfo": {
+                          "fqn": "@aws-cdk/aws-appsync.CfnResolver",
+                          "version": "1.204.0"
+                        }
+                      }
+                    },
+                    "constructInfo": {
+                      "fqn": "@aws-cdk/aws-appsync.Resolver",
+                      "version": "1.204.0"
+                    }
+                  }
+                },
+                "constructInfo": {
+                  "fqn": "@aws-cdk/aws-appsync.DynamoDbDataSource",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/aws-appsync.GraphqlApi",
+              "version": "1.204.0"
+            }
+          },
+          "GraphQLAPIEndpoint": {
+            "id": "GraphQLAPIEndpoint",
+            "path": "SuperheroCdkStack/GraphQLAPIEndpoint",
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CfnOutput",
+              "version": "1.204.0"
+            }
+          },
+          "GraphQLAPIKey": {
+            "id": "GraphQLAPIKey",
+            "path": "SuperheroCdkStack/GraphQLAPIKey",
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.CfnOutput",
+              "version": "1.204.0"
+            }
+          },
+          "CDKMetadata": {
+            "id": "CDKMetadata",
+            "path": "SuperheroCdkStack/CDKMetadata",
+            "children": {
+              "Default": {
+                "id": "Default",
+                "path": "SuperheroCdkStack/CDKMetadata/Default",
+                "constructInfo": {
+                  "fqn": "@aws-cdk/core.CfnResource",
+                  "version": "1.204.0"
+                }
+              }
+            },
+            "constructInfo": {
+              "fqn": "@aws-cdk/core.Construct",
+              "version": "1.204.0"
+            }
+          }
+        },
+        "constructInfo": {
+          "fqn": "@aws-cdk/core.Stack",
+          "version": "1.204.0"
+        }
+      }
+    },
+    "constructInfo": {
+      "fqn": "@aws-cdk/core.App",
+      "version": "1.204.0"
+    }
+  }
+}

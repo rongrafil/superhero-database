@@ -1,0 +1,332 @@
+{
+  "version": "21.0.0",
+  "artifacts": {
+    "Tree": {
+      "type": "cdk:tree",
+      "properties": {
+        "file": "tree.json"
+      }
+    },
+    "SuperheroCdkStack": {
+      "type": "aws:cloudformation:stack",
+      "environment": "aws://578364127340/ap-southeast-2",
+      "properties": {
+        "templateFile": "SuperheroCdkStack.template.json",
+        "validateOnSynth": false
+      },
+      "metadata": {
+        "/SuperheroCdkStack/Superhero-DB/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroDBFCA68E99",
+            "trace": [
+              "new Table (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-dynamodb/lib/table.js:480:22)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:15:19)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPI9B1EB2E0",
+            "trace": [
+              "new GraphqlApi (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi.js:157:20)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:31:17)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/Schema": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPISchemaF5B4FD06",
+            "trace": [
+              "Schema.bind (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/schema.js:66:27)",
+              "new GraphqlApi (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi.js:172:43)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:31:17)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/DefaultApiKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIDefaultApiKey8889C4F9",
+            "trace": [
+              "GraphqlApi.createAPIKey (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi.js:370:16)",
+              "new GraphqlApi (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi.js:188:40)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:31:17)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceServiceRoleFFBA11E8",
+            "trace": [
+              "new Role (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-iam/lib/role.js:63:22)",
+              "new BaseDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:32:53)",
+              "new BackedDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:93:9)",
+              "new DynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:137:9)",
+              "GraphqlApi.addDynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi-base.js:54:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:41:28)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/ServiceRole/DefaultPolicy/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceServiceRoleDefaultPolicyE81BDD3B",
+            "trace": [
+              "new Policy (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-iam/lib/policy.js:57:26)",
+              "Role.addToPrincipalPolicy (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-iam/lib/role.js:247:34)",
+              "Grant.addToPrincipal (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-iam/lib/grant.js:102:65)",
+              "Table.combinedGrant (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-dynamodb/lib/table.js:405:35)",
+              "Table.grantReadWriteData (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-dynamodb/lib/table.js:203:21)",
+              "new DynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:158:25)",
+              "GraphqlApi.addDynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi-base.js:54:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:41:28)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSource3C34519A",
+            "trace": [
+              "new BaseDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:36:19)",
+              "new BackedDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:93:9)",
+              "new DynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:137:9)",
+              "GraphqlApi.addDynamoDbDataSource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/graphqlapi-base.js:54:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:41:28)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/QuerygetHeroResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceQuerygetHeroResolver9B3DEADA",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:43:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByHeroNameResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceQueryallHeroesByHeroNameResolver3CF7CC6E",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:50:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesByPowersResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceQueryallHeroesByPowersResolver36342A27",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:57:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/QueryallHeroesResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceQueryallHeroesResolver95217650",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:64:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/MutationdeleteHeroResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceMutationdeleteHeroResolver2DEDC1C7",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:71:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/MutationupdateHeroResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceMutationupdateHeroResolver364BD50C",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:78:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/Superhero-API/MyDataSource/MutationaddHeroResolver/Resource": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "SuperheroAPIMyDataSourceMutationaddHeroResolverA0156B49",
+            "trace": [
+              "new Resolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/resolver.js:41:25)",
+              "DynamoDbDataSource.createResolver (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/aws-appsync/lib/data-source.js:59:16)",
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:85:16)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/GraphQLAPIEndpoint": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GraphQLAPIEndpoint",
+            "trace": [
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:93:5)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/GraphQLAPIKey": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "GraphQLAPIKey",
+            "trace": [
+              "new SuperheroCdkStack (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/lib/superhero-cdk-stack.js:98:5)",
+              "Object.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/bin/superhero-cdk.js:7:1)",
+              "Module._compile (node:internal/modules/cjs/loader:1254:14)",
+              "Module._extensions..js (node:internal/modules/cjs/loader:1308:10)",
+              "Module.load (node:internal/modules/cjs/loader:1117:32)",
+              "Module._load (node:internal/modules/cjs/loader:958:12)",
+              "Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)",
+              "node:internal/main/run_main_module:23:47"
+            ]
+          }
+        ],
+        "/SuperheroCdkStack/CDKMetadata/Default": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "CDKMetadata",
+            "trace": [
+              "new MetadataResource (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/metadata-resource.js:22:30)",
+              "/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/synthesis.js:139:9",
+              "visit (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/synthesis.js:200:9)",
+              "visit (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/synthesis.js:197:9)",
+              "injectMetadataResources (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/synthesis.js:128:5)",
+              "Object.synthesize (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/private/synthesis.js:17:5)",
+              "App.synth (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/stage.js:104:41)",
+              "process.<anonymous> (/Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-cdk/node_modules/@aws-cdk/core/lib/app.js:58:51)",
+              "Object.onceWrapper (node:events:628:26)",
+              "process.emit (node:events:513:28)"
+            ]
+          }
+        ]
+      },
+      "displayName": "SuperheroCdkStack"
+    }
+  }
+}

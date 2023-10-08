@@ -1,0 +1,79 @@
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[7].use[3]!./app/page.module.css ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+.page_pageTitle__r5Za5 {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.page_grid__JZ9Cz {
+  margin-top: 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  max-width: 1000px;
+}
+
+.page_action__BnXCt {
+  text-align: left;
+  color: dodgerblue;
+}
+
+.page_hero__7KFOs {
+  height: auto;
+  width: 200px;
+  padding: 0.2rem 1rem;
+  margin: 0.5rem;
+  background: #ffff00;
+  box-shadow: 4px 4px 8px 1px #00000075;
+  border-radius: 2px;
+}
+
+.page_container__jZF7q {
+  padding: 0 2rem;
+}
+
+.page_pageTitle__r5Za5 {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 3rem;
+}
+
+.page_hero__7KFOs {
+  height: auto;
+  width: 200px;
+  padding: 0.25rem;
+  border-radius: 2px;
+}
+
+.page_title__po7na {
+  padding: 0.1rem;
+  font-size: 1rem;
+}
+
+.page_content___38fW {
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.page_created__2gWS7 {
+  font-size: 0.7rem;
+  font-weight: lighter;
+}
+
+.page_action__BnXCt {
+  text-align: left;
+  color: dodgerblue;
+}
+
+.page_delete__NoZTA {
+  margin-top: 0.4rem;
+}
+
+.page_search__ZIWIO {
+  margin-right: 10px;
+  display: inline-block;
+}
+
