@@ -1,4 +1,4 @@
-// File: /Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/app/page.js
+// File: /Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-database/app/page.js
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

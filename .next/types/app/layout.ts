@@ -1,4 +1,4 @@
-// File: /Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/app/layout.js
+// File: /Users/gradesavers/Desktop/Ron/Superhero Database/superhero-database/superhero-database/app/layout.js
 import * as entry from '../../../app/layout.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 
